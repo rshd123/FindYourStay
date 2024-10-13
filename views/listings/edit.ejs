@@ -1,0 +1,32 @@
+<% layout("/layouts/boilerplate")%>
+<body>
+    <form method="POST" action="/listings/<%=detail._id%>?_method=PUT"  novalidate class="needs-validation">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div>
+                    <label class="form-label">Title:</label>
+                    <input name="listing[title]" type="text" placeholder="Enter title" class="form-control" value="<%=detail.title%>" required><br>
+                </div>
+                <div>
+                    <label class="form-label">Description:</label>
+                    <textarea name="listing[description]" type="text" placeholder="Enter description" class="form-control" required><%=detail.description%></textarea>
+                </div>
+                <div>
+                    <label class="form-label">Price:</label>
+                    <input name="listing[price]" type="number" placeholder="Enter Price" class="form-control" value="<%=detail.price%>" required><br>
+                </div>
+                <div>
+                    <label class="form-label">Location:</label>
+                    <input name="listing[location]" type="text" placeholder="Enter location" class="form-control" value="<%=detail.location%>" required><br>
+                </div>
+                <div>
+                    <label class="form-label">Country:</label>
+                    <input name="listing[country]" type="text" placeholder="Enter Country" class="form-control" value="<%=detail.country%>" required><br>
+                </div>
+
+                <button>done</button>
+            </div>
+        </div>
+        
+    </form>
+</body>

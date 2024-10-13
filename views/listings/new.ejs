@@ -1,0 +1,47 @@
+
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <form method="POST" action="/listings/new" novalidate class="needs-validation">
+                <div>
+                    <label class="form-label">Title:</label>
+                    <input name="listing[title]" type="text" placeholder="Enter title" class="form-control" required>
+                    <div class="valid-feedback">Title added!</div>
+                    <div class="invalid-feedback">Please add title!</div>
+                </div><br>
+                <div>
+                    <label class="form-label">Description:</label>
+                    <input name="listing[description]" type="text" placeholder="Enter description" class="form-control" required>
+                    <div class="valid-feedback"> Description added!</div>
+                    <div class="invalid-feedback">Please add description!</div>
+                </div><br>
+                <div>
+                    <label class="form-label">Price:</label>
+                    <input name="listing[price]" type="number" placeholder="Enter Price" class="form-control" required>
+                    <div class="valid-feedback">Price added!</div>
+                    <div class="invalid-feedback">Please add Price!</div>
+                </div><br>
+                <!-- <div>
+                    <label class="form-label">Image URL:</label>
+                    <input name="name[url]" type="text" placeholder="Image" class="form-control"><br>
+                </div> -->
+                <div>
+                    <label class="form-label">Location:</label>
+                    <input name="listing[location]" type="text" placeholder="Enter location" class="form-control" required>
+                    <div class="valid-feedback">Location added!</div>
+                    <div class="invalid-feedback">Please add Location!</div>
+                </div><br>
+                <div>
+                    <label class="form-label">Country:</label>
+                    <input name="listing[country]" type="text" placeholder="Enter Country" class="form-control" required>
+                    <div class="valid-feedback">Country added!</div>
+                    <div class="invalid-feedback">Please add Country!</div>
+                </div>
+                <br>
+                <button class="btn btn-danger">Add</button>
+            </form>
+        </div>
+    </div>
+</body>
