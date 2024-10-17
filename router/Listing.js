@@ -37,12 +37,14 @@ router.post("/new", validateListing, wrapAsync(async (req, res, next) => {
     });
 
     await newList.save();
+    req.flash("success", "New Destination is Added!"); //flash uses name value pair
     res.redirect("/listings");
 }));
 
 router.delete("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
+    req.flash("success", "Destination deleted!");
     res.redirect("/listings");
 }));
 
@@ -63,6 +65,7 @@ router.put("/:id", validateListing, wrapAsync(async (req, res) => {
     if (!updatedListing) {
         throw new ExpressError(404, "Listing not found");
     }
+    req.flash("success", "Destination updated !");
     res.redirect(`/listings/${id}`);
 }));
 

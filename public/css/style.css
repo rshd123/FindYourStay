@@ -78,9 +78,9 @@ footer{
 }
 
 
-.card:hover{
-    box-shadow: 0px 4px 20px rgba(0, 0, 0);
-}
+/* .card:hover{
+    
+} */
 
 .card-img-top{
     border-radius: 1rem !important;
