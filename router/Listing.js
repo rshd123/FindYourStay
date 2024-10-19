@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router({mergeParams:true});
+const router = express.Router({mergeParams:true}); //used to access parameters of parent route
 const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
 const ExpressError = require("../utils/expressError.js");
