@@ -69,7 +69,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success"); //name-value pair stored in Listing.js in line 40, it is an array
-    res.locals.err=req.flash("error");
+    res.locals.error=req.flash("error");
+    res.locals.currUser = req.user;
     next();
 });
 
