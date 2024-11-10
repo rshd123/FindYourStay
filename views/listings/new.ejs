@@ -4,7 +4,7 @@
 <body>
     <div class="row">
         <div class="col-8 offset-2">
-            <form method="POST" action="/listings/new" novalidate class="needs-validation">
+            <form method="POST" action="/listings/new" novalidate class="needs-validation" enctype="multipart/form-data">
                 <div>
                     <label class="form-label">Title:</label>
                     <input name="listing[title]" type="text" placeholder="Enter title" class="form-control" required>
@@ -23,10 +23,10 @@
                     <div class="valid-feedback">Price added!</div>
                     <div class="invalid-feedback">Please add Price!</div>
                 </div><br>
-                <!-- <div>
-                    <label class="form-label">Image URL:</label>
-                    <input name="name[url]" type="text" placeholder="Image" class="form-control"><br>
-                </div> -->
+                <div>
+                    <label class="form-label">Upload Image :</label>
+                    <input name="listing[image]" type="file"  class="form-control"><br>
+                </div> 
                 <div>
                     <label class="form-label">Location:</label>
                     <input name="listing[location]" type="text" placeholder="Enter location" class="form-control" required>

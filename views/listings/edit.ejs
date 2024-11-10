@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate")%>
 <body>
-    <form method="POST" action="/listings/<%=detail._id%>?_method=PUT"  novalidate class="needs-validation">
+    <form method="POST" action="/listings/<%=detail._id%>?_method=PUT"  novalidate class="needs-validation" enctype="multipart/form-data">
         <div class="row">
             <div class="col-8 offset-2">
                 <div>
@@ -10,6 +10,10 @@
                 <div>
                     <label class="form-label">Description:</label>
                     <textarea name="listing[description]" type="text" placeholder="Enter description" class="form-control" required><%=detail.description%></textarea>
+                </div>
+                <div>
+                    <label class="form-label">Upload New Image:</label>
+                    <input name="listing[image]" type="file" class="form-control"  ></input>
                 </div>
                 <div>
                     <label class="form-label">Price:</label>

@@ -99,3 +99,11 @@ footer{
 .show-img{
     height: 50vh;
 }
+
+/* body { margin: 0; padding: 0; } */
+#map { 
+    height: 25rem;
+    width: 50rem;
+    border-radius: 1rem;
+    border: solid 2px black;
+}

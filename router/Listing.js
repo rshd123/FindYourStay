@@ -4,21 +4,38 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../Models/listing.js");
 const {isLoggedIn,listingAuth,validateListing} = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
+const {storage}=require("../cloudConfig.js");
+const multer = require("multer");
+const upload = multer({storage});
 
-//index route
-router.get("/", wrapAsync(listingController.index));
-//new Form
-router.get("/new",isLoggedIn,wrapAsync(listingController.renderNewForm));
-//save new listing
-router.post("/new", validateListing, wrapAsync(listingController.saveNewListing));
-// render listing
-router.get("/:id", wrapAsync(listingController.renderListing));
-// delete listing
-router.delete("/:id", isLoggedIn,listingAuth,wrapAsync(listingController.deleteListing));
-//render edit form
-router.get("/:id/edit", isLoggedIn,listingAuth,wrapAsync(listingController.renderEditForm));
-//update listing
-router.put("/:id", isLoggedIn,listingAuth,validateListing, wrapAsync(listingController.updateListing));
+router.route("/")
+    //index route
+    .get(wrapAsync(listingController.index));
+
+router.route("/new")
+    //new Form
+    .get(isLoggedIn,wrapAsync(listingController.renderNewForm))
+    //save new listing
+    .post(isLoggedIn,upload.single("listing[image]"),wrapAsync(listingController.saveNewListing)); 
+
+router.route("/:id")
+    //render listing
+    .get(wrapAsync(listingController.renderListing))
+    // delete listing
+    .delete(isLoggedIn,listingAuth,wrapAsync(listingController.deleteListing))
+    //update listing
+    .put(
+        isLoggedIn,
+        listingAuth,
+        upload.single("listing[image]"),
+        // validateListing, 
+        wrapAsync(listingController.updateListing)
+    )
+
+router.route("/:id/edit")
+    //render edit form
+    .get(isLoggedIn,listingAuth,wrapAsync(listingController.renderEditForm));
+
 
 //export Router
 module.exports = router;

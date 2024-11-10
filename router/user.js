@@ -1,27 +1,25 @@
 const express = require("express");
 const router = express.Router();
-// const User = require("../Models/user.js");
-// const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
 const {saveRedirectURL} = require("../middleware.js");
 const userController = require("../controllers/user.js");
 
 
-router.get("/signup", userController.signUp);
+router.route("/signup")
+    .get(userController.signUp)
+    .post(userController.saveNewUser);
 
-router.post("/signup", userController.saveNewUser);
-
-router.get("/login", userController.renderLoginForm);
-
-
-//passport.authenticate() is a middleware used to authenticate the user before login
-
-router.post("/login",saveRedirectURL,passport.authenticate("local",{
+router.route("/login")
+    //passport.authenticate() is a middleware used to authenticate the user before login
+    .get(userController.renderLoginForm)
+    .post(saveRedirectURL,passport.authenticate("local",{
         failureRedirect: "/login",
         failureFlash:true,
     }), userController.Login
-);
+    );
 
-router.get("/logout", userController.Logout);
+
+router.route("/logout")
+    .get(userController.Logout);
 
 module.exports = router;

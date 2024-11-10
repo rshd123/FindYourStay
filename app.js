@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config();
+}
+
+
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -14,6 +19,8 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStratergy = require("passport-local");
 const User = require("./Models/user.js");
+
+
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));

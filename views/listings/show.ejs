@@ -50,9 +50,22 @@
                     <h3>Leave a review</h3>
                     <form method="POST" action="/listings/<%= detail._id %>/reviews" novalidate
                         class="needs-validation">
+                        
                         <div>
-                            <label for="rating" class="form-label">Rating:</label><br>
-                            <input type="range" min="1" max="5" id="rating" name="review[rating]" required>
+                            <label for="no-rate" class="form-label">Rating:</label><br>
+                            <fieldset class="starability-grow">
+                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." required/>
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
                         </div>
                         <div>
                             <label for="comment" class="form-label">Comment:</label><br>
@@ -64,6 +77,7 @@
                     </form>
             <%}%>
                     <hr>
+                    <% if(detail.reviews.length >0){ %>
                     <p><b>All Reviews</b></p>
                     <div class="row" style="justify-content: center;">
                         <% for (i of detail.reviews) { %>
@@ -73,7 +87,7 @@
                                         <h5 class="card-title" style="font-style:italic ;"><%=i.author.username%></h5>
                                         <%=i.comment%>
                                     </div>
-                                    <div class="card-text">Rating: <%=i.rating%>/5</div>
+                                    <p class="starability-result card-text" data-rating="<%=i.rating%>"></p>
                                 </div>
                                 <% if(currUser && i.author._id.equals(currUser._id)) {%>
                                 <form class="mb-1" method="POST"
@@ -84,6 +98,29 @@
                             </div>
                             <% } %>
                     </div>
+                    <hr>
+                    <% } %>
+                </div>
+                <div class="col-8 offset-1">
+                    <h4>Where you'll be</h4>
+                    <div id="map"></div>
+                    <script>
+                        const detail = <%-JSON.stringify(detail)%> ;
+                        let map_token = "<%= process.env.MAP_TOKEN %>";
+                        mapboxgl.accessToken = map_token;
+                        const map = new mapboxgl.Map({
+                            container: 'map', // container ID
+                            center: detail.geometry.coordinates, // starting position [lng, lat]. Note that lat must be set between -90 and 90
+                            zoom: 9 // starting zoom
+                        }); 
+                  
+                        const marker = new mapboxgl.Marker()
+                            .setLngLat(detail.geometry.coordinates)
+                            .setPopup(new mapboxgl.Popup({offset:25}).setHTML("<p>You are here!</p>"))
+                            .addTo(map);
+
+
+                    </script>
                 </div>
         </div>
     </body>
