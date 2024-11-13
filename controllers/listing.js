@@ -48,7 +48,7 @@ module.exports.renderListing = async (req, res) => {
         populate:{
             path:"author",
         },
-    }).populate("owner");
+    }).populate("owner")
     if (!detail) {
         req.flash("error","Listing you Requested doesn't exist");
         res.redirect("/listings");

@@ -15,12 +15,14 @@ const reviewRouter = require("./router/review.js");
 const userRouter = require("./router/user.js");
 const expressError = require("./utils/expressError.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStratergy = require("passport-local");
 const User = require("./Models/user.js");
 
 
+const dbURL = process.env.ATLASDB_URL;
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
@@ -33,7 +35,7 @@ app.engine("ejs",ejsMate);
 // main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+  await mongoose.connect(dbURL);
 
 }
 main()
@@ -49,7 +51,21 @@ app.listen(port,()=>{
     console.log("app is listening");
 });
 
+
+const store = MongoStore.create({
+    mongoUrl: dbURL,
+    crypto:{
+        secret:"mysecretcode",
+    },
+    touchAfter: 24*3600, //one day in seconds
+});
+
+store.on("error",()=>{
+    console.log("ERROR IN MONGO SESSION STORE",err);
+})
+
 const sessionOptions = {
+    store,
     secret:"mysecretcode",
     resave:false,
     saveUninitialized:true,
@@ -60,9 +76,6 @@ const sessionOptions = {
     },
 };
 
-app.get("/",(req,res)=>{
-    res.send("hi root is working");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());

@@ -14,7 +14,7 @@
             <br>
             <div class="card-body">
                 <p style="font-style: italic;">
-                    <%= detail.owner.username%>
+                    <b>Admin:</b> <%= detail.owner.username%>
                 </p>
                 <p class="card-text">
                     <b>About:</b>
@@ -105,7 +105,7 @@
                     <h4>Where you'll be</h4>
                     <div id="map"></div>
                     <script>
-                        const detail = <%-JSON.stringify(detail)%> ;
+                        const detail = <%-JSON.stringify(detail)%>;
                         let map_token = "<%= process.env.MAP_TOKEN %>";
                         mapboxgl.accessToken = map_token;
                         const map = new mapboxgl.Map({
@@ -114,9 +114,8 @@
                             zoom: 9 // starting zoom
                         }); 
                   
-                        const marker = new mapboxgl.Marker()
+                        const marker = new mapboxgl.Marker({color:'#fe424d'})
                             .setLngLat(detail.geometry.coordinates)
-                            .setPopup(new mapboxgl.Popup({offset:25}).setHTML("<p>You are here!</p>"))
                             .addTo(map);
 
 
