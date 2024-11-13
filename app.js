@@ -55,7 +55,7 @@ app.listen(port,()=>{
 const store = MongoStore.create({
     mongoUrl: dbURL,
     crypto:{
-        secret:"mysecretcode",
+        secret:process.env.SECRET,
     },
     touchAfter: 24*3600, //one day in seconds
 });
@@ -66,7 +66,7 @@ store.on("error",()=>{
 
 const sessionOptions = {
     store,
-    secret:"mysecretcode",
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{

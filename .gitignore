@@ -1,2 +1,6 @@
 # ignore classrooms flie
 classrooms/
+
+.env
+
+node_modules/ 
