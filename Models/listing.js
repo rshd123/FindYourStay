@@ -60,7 +60,7 @@ const userSchema = new Schema({
 userSchema.post("findOneAndDelete", async(listing) => {
     if(listing){
         await review.deleteMany({_id:{$in: listing.reviews}});
-    }
+    }   
 });
 
 const list = mongoose.model("list",userSchema);
